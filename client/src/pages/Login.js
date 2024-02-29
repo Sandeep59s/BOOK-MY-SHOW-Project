@@ -11,6 +11,7 @@ function Login() {
       const response = await LoginUser(value);
       if (response.success) {
         message.success(response.message);
+        localStorage.setItem('token' , response.token)
         navigate("/"); // to navigate ot to home route as the user has logged in
       } else {
         message.error(response.message);
