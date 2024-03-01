@@ -3,6 +3,7 @@ import { axiosInstance } from "./index";
 //register a user
 
 export const RegisterUser = async (value) => {
+  //value here is the payload in technical terms
   try {
     const response = await axiosInstance.post("/api/users/register", value);
     return response.data;

@@ -1,23 +1,27 @@
-import React from 'react'
-import {Form, Input, Button, message} from 'antd';
-import { Link } from 'react-router-dom';
-import { RegisterUser } from '../apiCalls/users';
+import React, { useEffect } from "react";
+import { Form, Input, Button, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { RegisterUser } from "../apiCalls/users";
 
 function Register() {
-
-    const onSubmit =async(value)=>{
-        try {
-            const response = await RegisterUser(value)
-            if(response.success){
-                message.success(response.message)
-            }else{
-                message.error(response.message)
-            }
-        } catch (error) {
-            console.log(error)
-        }
+  const navigate = useNavigate();
+  const onSubmit = async (value) => {
+    try {
+      const response = await RegisterUser(value);
+      if (response.success) {
+        message.success(response.message);
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      console.log(error);
     }
-
+  };
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>
@@ -68,7 +72,6 @@ function Register() {
                   placeholder="Enter the password"
                 ></Input>
               </Form.Item>
-    
 
               <Form.Item>
                 <Button
@@ -90,7 +93,7 @@ function Register() {
         </main>
       </header>
     </>
-  )
+  );
 }
 
-export default Register
+export default Register;
