@@ -5,6 +5,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useSelector } from "react-redux";
+import Profile from "./pages/Profile";
+import Admin from "./pages/Admin";
 
 function App() {
   const { loading } = useSelector((state) => state.loader);
@@ -24,6 +26,24 @@ function App() {
               <ProtectedRoute>
                 {" "}
                 <Home />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                {" "}
+                <Admin />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                {" "}
+                <Profile />{" "}
               </ProtectedRoute>
             }
           />
