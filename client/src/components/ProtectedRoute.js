@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { message, Layout, Menu } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { hideLoading, showLoading } from "../redux/loaderSlice";
-import {setUser} from "../redux/userSlice";
+import { setUser } from "../redux/userSlice";
 import { Header } from "antd/es/layout/layout";
 import {
   HomeOutlined,
@@ -30,7 +30,15 @@ function ProtectedRoute({ children }) {
       icon: <UserOutlined />,
       children: [
         {
-          label: "My Profile",
+          label: (
+            <span
+              onClick={() => {
+                user.isAdmin ? navigate("/admin") : navigate("profile");
+              }}
+            >
+              My Profile
+            </span>
+          ),
           icon: <ProfileOutlined />,
         },
         {
@@ -94,6 +102,9 @@ function ProtectedRoute({ children }) {
           </h3>
           <Menu theme="dark" mode="horizontal" items={navItems} />
         </Header>
+        <div style={{ padding: 24, minHeight: 380, background: "#fff" }}>
+            {children}
+          </div>
       </Layout>
     </>
   );
