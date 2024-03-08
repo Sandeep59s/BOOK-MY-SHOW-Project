@@ -55,5 +55,21 @@ router.put("/update-movie", async (req, res) => {
     });
   }
 });
+//delete movie
+
+router.delete('/delete-movie',async(req,res)=>{
+    try {
+        await Movie.findByIdAndDelete(req.body.movieId)
+        res.send({
+            success : true,
+            message :"Successfully Deleted The Movie!!!"
+        })
+    } catch (error) {
+        res.send({
+            success:false,
+            message :error.message
+        })
+    }
+})
 
 module.exports = router;

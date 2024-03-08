@@ -6,6 +6,7 @@ import { getAllMovies } from "../../apiCalls/movies";
 import { useDispatch } from "react-redux";
 import moment from "moment";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import DeleteMovieForm from "./DeleteMovieForm";
 
 function MovieTable() {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ function MovieTable() {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [formType, setFormType] = useState("add");
+  const [isDeleteModalOpen , setDeleteModalOpen] = useState(false);
   // console.log(selectedMovie);
   const getData = async () => {
     // This function will fetch all the movies
@@ -107,7 +109,12 @@ function MovieTable() {
             >
               <EditOutlined />
             </Button>
-            <Button style={{ backgroundColor: '#CC0000' }}>
+            <Button style={{ backgroundColor: '#CC0000' }}
+                onClick={()=>{
+                    setDeleteModalOpen(true);
+                    setSelectedMovie(data);
+                }}
+            >
               <DeleteOutlined />
             </Button>
           </div>
@@ -144,6 +151,15 @@ function MovieTable() {
           selectedMovie={selectedMovie}
           formType={formType}
         />
+      )}
+        {isDeleteModalOpen && (
+            <DeleteMovieForm
+              isDeleteModalOpen={isDeleteModalOpen}
+              setDeleteModalOpen={setDeleteModalOpen}
+              setSelectedMovie={setSelectedMovie}
+              selectedMovie={selectedMovie}
+              getData={getData}
+            />
       )}
     </>
   );
